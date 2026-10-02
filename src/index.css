@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Pharma (OSD) Manufacturing Theme Colors — Helvion Pharma, Plant 2 Lakeworth
+   (pack grammar: business systems = indigo #3730a3 family, MES = teal #0f766e family,
+   surface "mist" #f2f7f9 — see Apps\PHARMA-MES-CONTEXT.md "Design grammar") */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 20% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 20% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 20% 10%;
+
+    --primary: 244 54% 41%;
+    --primary-foreground: 197 37% 96%;
+
+    --secondary: 197 37% 96%;
+    --secondary-foreground: 242 47% 20%;
+
+    --muted: 197 37% 96%;
+    --muted-foreground: 230 8% 42%;
+
+    --accent: 197 37% 96%;
+    --accent-foreground: 242 47% 20%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 200 20% 88%;
+    --input: 200 20% 88%;
+    --ring: 244 54% 41%;
+
+    --radius: 0.5rem;
+
+    /* Pharma Pack Custom Colors */
+    --pha-indigo: 244 54% 41%;   /* biz-800 #3730a3 — business systems / primary */
+    --pha-teal: 175 77% 26%;     /* mes-700 #0f766e — MES */
+    --pha-deep: 242 47% 34%;     /* biz-900 #312e81 — deep indigo (gradient end, Module 0 accent) */
+    --pha-light: 197 37% 96%;    /* mist #f2f7f9 */
+    --pha-accent: 173 80% 40%;   /* mes-500 #14b8a6 */
+    --pha-danger: 0 70% 55%;
+    --pha-success: 145 65% 40%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 242 30% 7%;
+    --foreground: 197 37% 96%;
+
+    --card: 242 30% 7%;
+    --card-foreground: 197 37% 96%;
+
+    --popover: 242 30% 7%;
+    --popover-foreground: 197 37% 96%;
+
+    --primary: 197 37% 96%;
+    --primary-foreground: 242 47% 20%;
+
+    --secondary: 242 20% 16%;
+    --secondary-foreground: 197 37% 96%;
+
+    --muted: 242 20% 16%;
+    --muted-foreground: 230 10% 65%;
+
+    --accent: 242 20% 16%;
+    --accent-foreground: 197 37% 96%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 242 20% 16%;
+    --input: 242 20% 16%;
+    --ring: 230 30% 80%;
+
+    --pha-indigo: 239 70% 72%;
+    --pha-teal: 173 60% 50%;
+    --pha-deep: 240 40% 55%;
+    --pha-light: 240 15% 15%;
+    --pha-accent: 173 70% 60%;
+    --pha-danger: 0 70% 65%;
+    --pha-success: 145 65% 55%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .pha-gradient {
+    background: linear-gradient(135deg, hsl(var(--pha-indigo)) 0%, hsl(var(--pha-deep)) 100%);
+  }
+
+  .pha-gradient-teal {
+    background: linear-gradient(135deg, hsl(var(--pha-teal)) 0%, hsl(var(--pha-indigo)) 100%);
+  }
+
+  .pha-text {
+    color: hsl(var(--pha-indigo));
+  }
+
+  .pha-text-teal {
+    color: hsl(var(--pha-teal));
+  }
+
+  .pha-bg {
+    background-color: hsl(var(--pha-light));
+  }
+
+  .pha-accent-text {
+    color: hsl(var(--pha-accent));
+  }
+
+  .pha-danger-text {
+    color: hsl(var(--pha-danger));
+  }
+
+  .pha-success-text {
+    color: hsl(var(--pha-success));
+  }
+}
+
+/* PDF export of the facilitator model answers = browser print with this stylesheet.
+   App chrome carries Tailwind `print:hidden`; these rules add paging behavior. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  /* Every problem/summary card after the first starts on a fresh page */
+  .model-answers-print-root .print-break-before ~ .print-break-before {
+    break-before: page;
+  }
+
+  .model-answers-print-root tr,
+  .model-answers-print-root li {
+    break-inside: avoid;
+  }
+
+  .model-answers-print-root {
+    max-width: 100% !important;
+  }
+}
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
